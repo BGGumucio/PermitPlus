@@ -93,17 +93,15 @@ function applyPermit(){
 }
 function reviewPermit(){
     console.log("In Review Method");
-    $("#work-area").empty();
      $.ajax({
              type: "GET",
              url: "/index",
              dataType: "json",
-             success: printInfo
+             success: listPermits
         }).fail(function(){
             console.log("It Blew Up")
         });
 }
-
 
 function statusPermit(){
     console.log("In Status Method");
@@ -127,3 +125,20 @@ function aggregateData(){
         }
     });
 }
+
+function listPermits(data){
+    $("#work-area").empty();
+    console.log(data);
+    var $listHead = $("<p>Current Pending/Approved Permits</p>");
+    $("#work-area").append($listHead);
+    var $table = ("<center><table id='permitList'></table></center>");
+    var $list = $("<ul></ul>");
+    $list.append("<tr><b><td>Permit Number</td><td>Applicant Name</td><td>Applicant Email</td><td>Job Address</td><td>City</td><td>State</td></b></tr>");
+    $.each( data, function( key, value ) {
+        console.log( key + ": " + value );
+        $list.append("<tr><li><td>" + value._id + "</td><td>"+value.Applicant.Applicant_Name +"</td><td>"+value.Applicant.Applicant_Email +"</td><td>" + value.Project.Job_Address+"</td><td>"+value.Project.City +"</td><td>"+value.Project.State +"</td><td id='"+ value._id + "'>View Permit</td></li></tr>");
+});
+    $listHead.append($table);
+    $listHead.append($list);
+}
+

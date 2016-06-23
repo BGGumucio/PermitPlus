@@ -21,7 +21,7 @@ app.get('/index', function(req,res,next){
   Mongo.connect(dbURL, function(err,db){
     if (err) return next(err);
      var permits = db.collection('permitplus');
-    permits.distinct('name', function(err,names){
+    permits.find({}).toArray(function(err,names){
       if (err) return next(err);
 
       console.log(names);
