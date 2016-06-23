@@ -4,6 +4,7 @@ var bp = require('body-parser');
 var Mongo = require('mongodb').MongoClient;
 var dbURL = 'mongodb://localhost:27017/permitplus'
 var path = require("path");
+ObjectId = require("mongodb").ObjectID;
 
 app.use(bp.json());
 app.use(bp.urlencoded({extended:true}));
@@ -21,11 +22,28 @@ app.get('/index', function(req,res,next){
   Mongo.connect(dbURL, function(err,db){
     if (err) return next(err);
      var permits = db.collection('permitplus');
-    permits.find({}).toArray(function(err,names){
+    permits.find({}).toArray(function(err,permit){
+      if (err) return next(err);
+
+      console.log(permit);
+      console.log("in get route");
+      res.json(permit);
+
+      db.close();
+    });
+  });
+});
+
+app.get('/single/:id', function(req,res,next){
+  console.log("in single get request");
+  Mongo.connect(dbURL, function(err,db){
+    if (err) return next(err);
+    var objectId = ObjectId(req.params.id);
+     var permits = db.collection('permitplus');
+    permits.find({_id : objectId}).toArray(function(err,names){
       if (err) return next(err);
 
       console.log(names);
-      console.log("in get route");
       res.json(names);
 
       db.close();
@@ -40,44 +58,44 @@ app.post('/permitapp', function(req,res,next){
     if (err) return next(err);
     var permitApplication = { 
 	"Project" : {
-			"Job Address" : req.body.jobaddress,
+			"Job_Address" : req.body.jobaddress,
 			"City" : req.body.city,
 			"State" : req.body.state,
 			"Zipcode" : req.body.zipcode,
-			"Property Value" : req.body.value,
-			"Job Description" : req.body.description
+			"Property_Value" : req.body.value,
+			"Job_Description" : req.body.description
 	},
 	"Applicant" : {
-			"Applicant Name" : req.body.applicant,
-			"Applicant Phone Number" : req.body.appphone,
-			"Applicant Email" : req.body.appemail
+			"Applicant_Name" : req.body.applicant,
+			"Applicant_Phone_Number" : req.body.appphone,
+			"Applicant_Email" : req.body.appemail
 	},
 	"Contact" : {
-			"Contact Name" : req.body.contact,
-			"Contact Phone Number" : req.body.contactphone,
-			"Contact Email" : req.body.contactemail			
+			"Contact_Name" : req.body.contact,
+			"Contact_Phone_Number" : req.body.contactphone,
+			"Contact_Email" : req.body.contactemail			
 	} ,
 	"Architect" : {
-			"Architect Name" : req.body.architect,
-			"Architect Phone Number" : req.body.architectphone,
-			"Architect Email" : req.body.architectemail
+			"Architect_Name" : req.body.architect,
+			"Architect_Phone_Number" : req.body.architectphone,
+			"Architect_Email" : req.body.architectemail
 	} ,
-	"Property Owner" : {
-		"Owner Name" : req.body.ownername,
-		"Owner Address" : req.body.owneraddress,
-		"Owner City" : req.body.ownercity,
-		"Owner State" : req.body.ownerstate,
-		"Owner Phone Number" : req.body.ownerphone
+	"Property_Owner" : {
+		"Owner_Name" : req.body.ownername,
+		"Owner_Address" : req.body.owneraddress,
+		"Owner_City" : req.body.ownercity,
+		"Owner_State" : req.body.ownerstate,
+		"Owner_Phone_Number" : req.body.ownerphone
 	} ,
 	"Contractor" : {
-		"Contractor Name" : req.body.contractorname,
-		"Contractor Address" : req.body.contractoraddress,
-		"Contractor City" : req.body.contractorcity,
-		"Contractor State" : req.body.contractorstate,
-		"Contractor Phone Number" : req.body.contractorphone		
+		"Contractor_Name" : req.body.contractorname,
+		"Contractor_Address" : req.body.contractoraddress,
+		"Contractor_City" : req.body.contractorcity,
+		"Contractor_State" : req.body.contractorstate,
+		"Contractor_Phone_Number" : req.body.contractorphone		
 	} ,
 	"Submission" : {
-		"Signed Full Name" : req.body.fullname,
+		"Signed_Full_Name" : req.body.fullname,
 		"Date" : req.body.date,
 		"Status" : "Under Review"
 	}

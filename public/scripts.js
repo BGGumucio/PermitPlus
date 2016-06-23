@@ -131,14 +131,52 @@ function listPermits(data){
     console.log(data);
     var $listHead = $("<p>Current Pending/Approved Permits</p>");
     $("#work-area").append($listHead);
-    var $table = ("<center><table id='permitList'></table></center>");
+    var $table = ("<table id='permitList'></table>");
+    $listHead.append($table);
     var $list = $("<ul></ul>");
     $list.append("<tr><b><td>Permit Number</td><td>Applicant Name</td><td>Applicant Email</td><td>Job Address</td><td>City</td><td>State</td></b></tr>");
     $.each( data, function( key, value ) {
         console.log( key + ": " + value );
-        $list.append("<tr><li><td>" + value._id + "</td><td>"+value.Applicant.Applicant_Name +"</td><td>"+value.Applicant.Applicant_Email +"</td><td>" + value.Project.Job_Address+"</td><td>"+value.Project.City +"</td><td>"+value.Project.State +"</td><td id='"+ value._id + "'>View Permit</td></li></tr>");
-});
-    $listHead.append($table);
-    $listHead.append($list);
+        var $row = $("<tr>");
+        var $permitNum = $("<td>" + value._id + "</td>");
+        var $appNm = $("<td>" + value.Applicant.Applicant_Name + "</td>");
+        var $appEmail = $("<td>" + value.Applicant.Applicant_Email + "</td>");
+        var $projAdd = $("<td>" + value.Project.Job_Address + "</td>");
+        var $projCity = $("<td>" + value.Project.City + "</td>");
+        var $projState = $("<td>" + value.Project.State + "</td>");                
+        var $clickIn = $("<td id='"+ value._id + "'>View Permit</td>");
+        $row.append($permitNum, $appNm, $appEmail, $projAdd, $projCity, $projState, $clickIn);
+        $list.append($row);
+        $clickIn.click(function(e){
+            var $singleId = $(this).attr("id");
+            console.log($singleId + "Clicked");
+            getSingle($singleId);
+        });
+       
+    });
+    $("#permitList").append($list);
 }
+function getSingle(idNumber){
+    console.log(idNumber);
+    $.ajax({
+             type: "GET",
+             url: "/single/" + idNumber,
+             dataType: "json",
+             success: displaySingle
+        }).fail(function(){
+            console.log("It Blew Up")
+        });
+    };
+function displaySingle(data){
+    $("#work-area").empty();
+    var $header = $("<h1> Permit No. " + data[0]._id + "</h1>");
+    $("#work-area").append($header);
+    $header.append("</br>");
+    $header.append(data[0].Project.Job_Address);
+    $header.append(data[0].Project.City);
+    $header.append(data[0].Project.State);
+    $header.append(data[0].Project.Job_Description);
+    console.log(data[0].Project.State);
+}    
+
 
