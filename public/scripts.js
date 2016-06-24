@@ -170,13 +170,50 @@ function getSingle(idNumber){
 function displaySingle(data){
     $("#work-area").empty();
     var $header = $("<h1> Permit No. " + data[0]._id + "</h1>");
+    $header.append("</br> Submission Status: " + data[0].Submission.Status);
     $("#work-area").append($header);
-    $header.append("</br>");
-    $header.append(data[0].Project.Job_Address);
-    $header.append(data[0].Project.City);
-    $header.append(data[0].Project.State);
-    $header.append(data[0].Project.Job_Description);
-    console.log(data[0].Project.State);
+    var $permitDiv = $("<div id='permit'>");
+    $("#work-area").append($permitDiv);
+    $jobDiv = $("<div id ='jobInfo'>");
+    $permitDiv.append($jobDiv);
+    $jobDiv.append("<b>Job Information: </b></br>");
+    $jobDiv.append(data[0].Project.Job_Address + "</br>");
+    $jobDiv.append(data[0].Project.City+", "+data[0].Project.State);
+    $jobDiv.append("</br>"+data[0].Project.Zipcode + "</br>");
+    $jobDiv.append("</br> Property Value: "+data[0].Project.Property_Value + "</br>");
+    $jobDiv.append("</br><b>Job Information: </b></br>");
+    $jobDiv.append(data[0].Project.Job_Description);
+    $appDiv = $("<div id ='appInfo'>");
+    $jobDiv.append($appDiv);
+    $appDiv.append("</br><b> Applicant Information </b></br>");
+    $appDiv.append(data[0].Applicant.Applicant_Name + "</br>");
+    $appDiv.append(data[0].Applicant.Applicant_Phone_Number + "</br>");
+    $appDiv.append(data[0].Applicant.Applicant_Email + "</br>");
+    $archDiv = $("<div id ='archInfo'>");
+    $appDiv.append($archDiv);
+    $archDiv.append("</br><b> Architect Information </b></br>");
+    $archDiv.append(data[0].Architect.Architect_Name + "</br>");
+    $archDiv.append(data[0].Architect.Architect_Phone_Number + "</br>");
+    $archDiv.append(data[0].Architect.Architect_Email + "</br>");
+    $propDiv = $("<div id ='propInfo'>");
+    $archDiv.append($propDiv);
+    $propDiv.append("</br><b> Property Owner Information </b></br>");
+    $propDiv.append(data[0].Property_Owner.Owner_Name + "</br>");
+    $propDiv.append(data[0].Property_Owner.Owner_Address + "</br>");
+    $propDiv.append(data[0].Property_Owner.Owner_City + "</br>");
+    $propDiv.append(data[0].Property_Owner.Owner_State + "</br>");
+    $propDiv.append(data[0].Property_Owner.Owner_Phone_Number + "</br>");
+    $conDiv = $("<div id ='contractorInfo'>");
+    $propDiv.append($conDiv);
+    $conDiv.append("</br><b> Contractor Information </b></br>");
+    $conDiv.append(data[0].Contractor.Contractor_Name + "</br>");
+    $conDiv.append(data[0].Contractor.Contractor_Address + "</br>");
+    $conDiv.append(data[0].Contractor.Contractor_City + "</br>");
+    $conDiv.append(data[0].Contractor.Contractor_State + "</br>");
+    $conDiv.append(data[0].Contractor.Contractor_Phone_Number + "</br>");
+    $signedDiv = $("<div id ='signedInfo'>");
+    $conDiv.append($signedDiv);
+    $signedDiv.append("</br></br> This application was submitted on " + data[0].Submission.Date + " by " + data[0].Submission.Signed_Full_Name);
 }    
 
 
