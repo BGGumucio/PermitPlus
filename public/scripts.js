@@ -145,14 +145,19 @@ function listPermits(data){
         var $projCity = $("<td>" + value.Project.City + "</td>");
         var $projState = $("<td>" + value.Project.State + "</td>");                
         var $clickIn = $("<td id='"+ value._id + "'>View Permit</td>");
-        $row.append($permitNum, $appNm, $appEmail, $projAdd, $projCity, $projState, $clickIn);
+        var $reviewPermit = $("<td id='"+ value._id + "'>Review Permit</td>");
+        $row.append($permitNum, $appNm, $appEmail, $projAdd, $projCity, $projState, $clickIn, $reviewPermit);
         $list.append($row);
         $clickIn.click(function(e){
             var $singleId = $(this).attr("id");
             console.log($singleId + "Clicked");
             getSingle($singleId);
         });
-       
+        $reviewPermit.click(function(e){
+            var $singleId = $(this).attr("id");
+            console.log($singleId + "Clicked");
+            getSingle($singleId);
+        });
     });
     $("#permitList").append($list);
 }

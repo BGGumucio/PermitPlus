@@ -1,4 +1,70 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,500,700,300,100);
+@import url(https://fonts.googleapis.com/css?family=Dancing+Script:700);
+
+#header{
+    background-image: url("skyline.jpg");
+    background-size: cover;
+    background-position-y: 74%;
+    
+    /*background-color: black;*/
+    width: 100%;
+    height: 150px; 
+}
+#city{
+    font-size: 3.5em;
+    color: white;
+    font-family: "Roboto";
+}
+#office{
+    font-size: 1em;
+    color: white;
+    font-family: "Dancing Script";
+}
+
+
+#work-area>button{
+	-moz-box-shadow: 0px 10px 14px -7px #253db8;
+	-webkit-box-shadow: 0px 10px 14px -7px #253db8;
+	box-shadow: 0px 10px 14px -7px #253db8;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #598cb3), color-stop(1, #101f80));
+	background:-moz-linear-gradient(top, #598cb3 5%, #101f80 100%);
+	background:-webkit-linear-gradient(top, #598cb3 5%, #101f80 100%);
+	background:-o-linear-gradient(top, #598cb3 5%, #101f80 100%);
+	background:-ms-linear-gradient(top, #598cb3 5%, #101f80 100%);
+	background:linear-gradient(to bottom, #598cb3 5%, #101f80 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#598cb3', endColorstr='#101f80',GradientType=0);
+	background-color:#598cb3;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	border-radius:4px;
+	border:1px solid #4481c2;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:13px;
+	font-weight:bold;
+	padding:13px 53px;
+    margin: 10px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #7c93d6;
+}
+.myButton:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #101f80), color-stop(1, #598cb3));
+	background:-moz-linear-gradient(top, #101f80 5%, #598cb3 100%);
+	background:-webkit-linear-gradient(top, #101f80 5%, #598cb3 100%);
+	background:-o-linear-gradient(top, #101f80 5%, #598cb3 100%);
+	background:-ms-linear-gradient(top, #101f80 5%, #598cb3 100%);
+	background:linear-gradient(to bottom, #101f80 5%, #598cb3 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#101f80', endColorstr='#598cb3',GradientType=0);
+	background-color:#101f80;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+
+}
 
 #work-area p{
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
